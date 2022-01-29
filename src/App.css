@@ -1,0 +1,31 @@
+:root {
+  --navbarBg: #151e28;
+  --navbarLink: rgba(255, 255, 255, 0.8);
+  --navbarLinkFocused: rgba(255, 255, 255, 1);
+}
+
+.navbar {
+  background-color: var(--navbarBg);
+}
+.nav-link {
+  color: var(--navbarLink) !important;
+}
+.nav-link:hover {
+  color: var(--navbarLinkFocused) !important;
+}
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.1rem;
+}
+
+button:disabled,
+button[disabled] {
+  opacity: 0.8;
+}
+.custon-text-button {
+  color: #404040;
+}
+.custom-text-button:hover,
+.custom-text-button:active {
+  color: #252525;
+  cursor: pointer !important;
+}
