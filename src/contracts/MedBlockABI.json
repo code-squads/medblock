@@ -1,0 +1,631 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "patient",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "disease",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "treatment",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "medication",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "DrName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "hospitalRecordID",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "diagnoseDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "dischargeDate",
+				"type": "uint256"
+			}
+		],
+		"name": "addRecord",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "recordID",
+				"type": "uint256"
+			}
+		],
+		"name": "approveRecord",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "recordID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "declineMsg",
+				"type": "string"
+			}
+		],
+		"name": "declineRecord",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "hospitalAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "govtLicenseNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityIssueDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityTerminalDate",
+				"type": "uint256"
+			}
+		],
+		"name": "hospitalRegistration",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "hospitalAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "govtLicenseNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityIssueDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityTerminalDate",
+				"type": "uint256"
+			}
+		],
+		"name": "modifyHospitalData",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "patientAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "fname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "lname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "birthdate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Data.Gender",
+				"name": "gender",
+				"type": "uint8"
+			}
+		],
+		"name": "modifyUserData",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "adminName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "adminRegisteredNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "adminResidentialAddress",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "patientAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "fname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "lname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "birthdate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Data.Gender",
+				"name": "gender",
+				"type": "uint8"
+			}
+		],
+		"name": "userRegistration",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAdminInfo",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "registeredNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "residentialAddress",
+						"type": "string"
+					}
+				],
+				"internalType": "struct Data.AdminData",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "person",
+				"type": "address"
+			}
+		],
+		"name": "getAllRecords",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "senderHospital",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "approved",
+						"type": "bool"
+					},
+					{
+						"internalType": "string",
+						"name": "declineMsg",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "patient",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "disease",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "treatment",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "medication",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "DrName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "hospitalRecordID",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diagnoseDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dischargeDate",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Data.MedicalData[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "hospitalAddress",
+				"type": "address"
+			}
+		],
+		"name": "getHospitalInfo",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "Address",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "govtLicenseNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "authorityIssueDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "authorityTerminalDate",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Data.HospitalData",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "person",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "idx",
+				"type": "uint256"
+			}
+		],
+		"name": "getRecord",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "senderHospital",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "approved",
+						"type": "bool"
+					},
+					{
+						"internalType": "string",
+						"name": "declineMsg",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "patient",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "disease",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "treatment",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "medication",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "DrName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "hospitalRecordID",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diagnoseDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dischargeDate",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Data.MedicalData",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "patientAddress",
+				"type": "address"
+			}
+		],
+		"name": "getUserInfo",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "fname",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "lname",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "phone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "residentialAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "birthdate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum Data.Gender",
+						"name": "gender",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct Data.PatientData",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "isAdmin",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
