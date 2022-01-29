@@ -34,7 +34,7 @@ const App = () => {
           />
           <Route exact path="/patientDashboard" component={PatientDashboard} />
 
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login/:type" component={Login}/>
 
           <Redirect to="/" />
         </Switch>
