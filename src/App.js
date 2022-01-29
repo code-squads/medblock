@@ -7,6 +7,8 @@ import {
   AdminDashboard,
   HospitalDashboard,
   PatientDashboard,
+  AnyRecord,
+  AnyRecordDisplay
 } from "./pages";
 
 import { Navbar } from "./components/core";
@@ -35,6 +37,8 @@ const App = () => {
           <Route exact path="/patientDashboard" component={PatientDashboard} />
 
           <Route exact path="/login/:type" component={Login}/>
+          <Route exact path="/anyRecord" component={AnyRecord}/>
+          <Route exact path="/anyRecordDisplay" component={AnyRecordDisplay}/>
 
           <Redirect to="/" />
         </Switch>
