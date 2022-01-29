@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faCamera } from "@fortawesome/free-solid-svg-icons";
 import QrReader from "react-qr-reader";
 
 import basicInfo from "../assets/illustrations/basicInfo2.png";
@@ -51,7 +51,7 @@ const PatientLogin2 = () => {
     <Container>
       <SubContainer1>
         <AppNameContainer>
-          <img src={basicInfo} alt="Mediblock" />
+          <img src={basicInfo} alt="Medblock" />
           <Heading>Decentralized platform</Heading>
           <SubHeading>to store your medical history</SubHeading>
         </AppNameContainer>
@@ -105,12 +105,26 @@ const PatientLogin2 = () => {
         {!openWebcamMobile && <OrDiv>Or</OrDiv>}
         <ButtonContainer>
           <ScanOrButton onClick={() => setOpenWebcam(!openWebcam)}>
-            {openWebcam ? "Close Camera" : "Scan QR"}
+            {
+              openWebcam ? 
+              "Close Camera" : 
+              <>
+                Scan QR &nbsp;&nbsp;
+                <FontAwesomeIcon icon={faCamera} />
+              </>
+            }
           </ScanOrButton>
           <ScanOrButtonMobile
             onClick={() => setOpenWebcamMobile(!openWebcamMobile)}
           >
-            {openWebcamMobile ? "Close Camera" : "Scan QR"}
+            {
+              openWebcamMobile ? 
+              "Close Camera" : 
+              <>
+                Scan QR &nbsp;&nbsp;
+                <FontAwesomeIcon icon={faCamera} />
+              </>
+            }
           </ScanOrButtonMobile>
         </ButtonContainer>
         <CoreButton
