@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,9 @@ import QrReader from "react-qr-reader";
 
 import basicInfo from "../assets/illustrations/basicInfo2.png";
 import CoreButton from "../components/core/Button";
+import { useAuth } from "../services/authorization";
+import { universalLogin } from "../apis/medblock";
+import { AUTHORITY_TYPES } from "../Constants/authorityTypes";
 import {
   AppNameContainer,
   AppOveriewIllustration,
@@ -25,14 +28,37 @@ import {
 } from "./Login.styled";
 
 const PatientLogin2 = () => {
+  const auth = useAuth();
+
   const [pk, setPK] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [openWebcam, setOpenWebcam] = useState(false);
   const [openWebcamMobile, setOpenWebcamMobile] = useState(false);
 
   const { type } = useParams();
+  const AuthorityTypes =
+    type === "patient"
+      ? AUTHORITY_TYPES.PATIENT
+      : type === "hospital"
+      ? AUTHORITY_TYPES.HOSPITAL
+      : AUTHORITY_TYPES.ADMIN;
+
   function login() {
     setIsLoggingIn(true);
+    universalLogin(pk, AuthorityTypes)
+      .then((info) => {
+        const successfulLogin = auth.login(pk, AuthorityTypes, info);
+        if (successfulLogin)
+          console.log(`Login successful with following ${type} info: `, info);
+        else console.log("Some err logging in!, ", successfulLogin);
+        setIsLoggingIn(false);
+      })
+      .catch((err) => {
+        alert("Invalid private key !!");
+        console.log("Login failed :( with following response: ");
+        console.log(err);
+        setIsLoggingIn(false);
+      });
   }
 
   const onHandlerErrWebcam = (error) => {
@@ -46,6 +72,12 @@ const PatientLogin2 = () => {
       setOpenWebcamMobile(false);
     }
   };
+
+  if (auth.loggedIn) {
+    const path = `/${type}Dashboard`;
+    console.log(path);
+    return <Redirect to={path} />;
+  }
 
   return (
     <Container>
