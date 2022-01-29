@@ -1,0 +1,5 @@
+export const AUTHORITY_TYPES = {
+  HOSPITAL : "HOSPITAL",
+  ADMIN: "ADMIN",
+  PATIENT : "PATIENT",
+}
