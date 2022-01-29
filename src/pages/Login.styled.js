@@ -95,7 +95,7 @@ export const ScanOrButton = styled(CoreButton)`
   color: #202020;
   background-color: #ffde00;
   font-size: 16px;
-  width: 45%;
+  width: 50%;
   @media (max-width: 1000px) {
     /* width: 100%; */
     display: none;
