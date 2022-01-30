@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
 import web3 from '../services/web3';
@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { DashboardIcon, DownloadIcon, NoteSection } from './HospitalRegistration.styled';
-import basicIllustration from '../assets/illustrations/basicInfo.png';
+import basicIllustration from '../assets/illustrations/basicInfo2.png';
 import otpSuccess from '../assets/illustrations/otpSuccess.png';
 
 const HospitalRegistration = () => {
@@ -28,6 +28,13 @@ const HospitalRegistration = () => {
 
     // details | otp | success
     const [progress, setProgress] = useState(PROGRESS_STATUSES.DETAILS);
+    
+    useEffect(()=>{
+        setProgress(PROGRESS_STATUSES.CONFIRM)
+    }, [])
+;
+    console.log(progress === PROGRESS_STATUSES.CONFIRM)
+    console.log(auth);
 
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -117,16 +124,22 @@ const HospitalRegistration = () => {
                 newHospitalAccount.address,
                 auth.wallet.address
             );
+            console.log(registeredHospitalTxReceipt)
 
             if(registeredHospitalTxReceipt){
                 sendEth(auth.wallet.address, newHospitalAccount.address, "0.1");
+                console.log('1')
                 setGeneratedAccount(newHospitalAccount);
-                setProgress(PROGRESS_STATUSES.SUCCESS)
+                console.log('2')
+                setProgress(PROGRESS_STATUSES.CONFIRM)
+                console.log('3')
+
             }else
                 alert("Hospital not registered due to some error");
 
+            console.log('check')
             setIsProcessing(false);
-            setProgress(PROGRESS_STATUSES.SUCCESS);
+            setProgress(PROGRESS_STATUSES.CONFIRM);
         }catch(err){
             console.log("Some error registering new hospital:", newHospitalAccount.address);
             console.log(err);
@@ -145,12 +158,14 @@ const HospitalRegistration = () => {
         generateKeyFile(name, generatedAccount.privateKey);
     }
 
-    if(!auth.loggedIn || !auth.entityInfo || !auth.wallet || !auth.authority){
-        auth.logout();
-        return <Redirect to='/login/admin' />
-    }
-    if(auth.authority !== AUTHORITY_TYPES.ADMIN)
-        return <Redirect to="/"/>
+    // console.log(auth);
+    // if(!auth.loggedIn || !auth.entityInfo || !auth.wallet || !auth.authority){
+    //     auth.logout();
+    //     return <Redirect to='/login/admin' />
+    // }
+    // console.log(auth.authority);
+    // if(auth.authority !== AUTHORITY_TYPES.ADMIN)
+    //     return <Redirect to="/"/>
 
     return (
         <Container className="py-5">
@@ -158,11 +173,12 @@ const HospitalRegistration = () => {
                 <Col lg={5} className="d-none d-lg-block">
                     <img
                         className="w-100"
-                        alt="about medblock"
+                        alt="about medikeep"
                         src={basicIllustration}
                         />
                 </Col>
                 <Col md={0} lg={1}></Col>
+                hllo
                 <Col md={12} lg={6}>
                     {
                         progress === PROGRESS_STATUSES.DETAILS 
@@ -294,12 +310,12 @@ const HospitalRegistration = () => {
                                 <img
                                     className="my-4"
                                     style={{width: "90%"}}
-                                    alt="about medblock"
+                                    alt="about medikeep"
                                     src={otpSuccess}
                                     />
                             </Col>
                         </Row>
-                        : progress === PROGRESS_STATUSES.SUCCESS ?
+                        : progress === PROGRESS_STATUSES.CONFIRM ?
                         <div>
                             <div className="d-flex justify-content-end">
                                 <Link to="/adminDashboard" className="text-dark text-decoration-none">
