@@ -1,0 +1,11 @@
+export const PROGRESS_STATUSES = {
+    DETAILS: "DETAILS",
+    OTP: "OTP",
+    SUCCESS: "SUCCESS",
+  
+    //   For Hospital Flow:
+    PATIENT_ADDRESS: "PATIENT_ADDRESS",
+    RECORD_DETAILS: "RECORD_DETAILS",
+    CONFIRM: "CONFIRM",
+    RECIEPT: "RECIEPT",
+  };
