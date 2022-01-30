@@ -1,4 +1,5 @@
 import React from "react";
+import NewRecord from "./pages/NewRecord";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import {
@@ -35,6 +36,7 @@ const App = () => {
             component={HospitalDashboard}
           />
           <Route exact path="/patientDashboard" component={PatientDashboard} />
+          <Route exact path="/newRecord" component={NewRecord} />
 
           <Route exact path="/login/:type" component={Login}/>
           <Route exact path="/anyRecord" component={AnyRecord}/>
