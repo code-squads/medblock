@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
 import Accessibility from '../assets/LandingPage/Accessibility.svg'
@@ -45,17 +45,22 @@ import {
     SubContainer5,
     SubContainerMobile,
 } from './LandingPage.styled'
+import { useAuth } from '../services/authorization';
 
 const LandingPage = () => {
 
+    const ref = useRef()
+    const loginRef = useRef()
+    const auth = useAuth()
     const history = useHistory()
 
-    //Temporary
-    const auth = {
-        loggedIn: true
-    }
-
     const [menu, setMenu] = useState(false)
+
+    const scrollToLoginFlex = () => ref.current.scrollIntoView() 
+    const scrollToLoginFlexMobile = () => {
+        setMenu(false)
+        loginRef.current.scrollIntoView() 
+    }
 
     return (
         <Container>
@@ -67,7 +72,7 @@ const LandingPage = () => {
                 {
                     auth.loggedIn ?
                     <Login onClick={() => history.push('/dashboard')}>Dashboard</Login>
-                    : <Login>Login</Login>
+                    : <Login onClick={scrollToLoginFlex}>Login</Login>
                 }
                 <MenuContainer open={menu}>
                     <Menu onClick={() => setMenu(!menu)}>
@@ -75,7 +80,7 @@ const LandingPage = () => {
                     <Dropdown >
                         <DropdownItem 
                             style={{backgroundColor: '#DAE9FF'}}
-                            onClick={() => setMenu(!menu)}    
+                            onClick={scrollToLoginFlexMobile} 
                         >Home</DropdownItem>
                         <DropdownItem onClick={() => setMenu(!menu)}>Login</DropdownItem>
                     </Dropdown>
@@ -87,18 +92,18 @@ const LandingPage = () => {
                         <Slogan>Get your medical history stored<br/>on blockchain with us</Slogan>
                         <Slogan2>Access it from anywhere and anytime. Trusted by<br/>Government authorities</Slogan2>
                         <ButtonContainer>
-                            <GetStartedButton>Get Started</GetStartedButton>
+                            <GetStartedButton onClick={scrollToLoginFlex} >Get Started</GetStartedButton>
                         </ButtonContainer>
                     </SubContainer3>
                     <DoctorNurseIllustration/>
                     <SubContainerMobile>
                         <ButtonContainerMobile>
-                            <GetStartedButtonMobile>Get Started</GetStartedButtonMobile>
+                            <GetStartedButtonMobile onClick={scrollToLoginFlex}>Get Started</GetStartedButtonMobile>
                         </ButtonContainerMobile>
                         <DoctorNurseIllustrationMobile/>
                     </SubContainerMobile>
                 </SubContainer2>
-                <SubContainer4>
+                <SubContainer4 ref={ref}>
                     <SubContainer5>
                         <ImageAndTextContainer>
                             <Image src={Accessibility}/>
