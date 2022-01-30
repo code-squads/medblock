@@ -97,7 +97,7 @@ const HospitalDashboard = () => {
             </NavlinkActive>
           </ListItems>
           <ListItems>
-            <Navlink to="/declinedRecords">
+            <Navlink to="#">
               <div>
                 <DeclineLogo
                   style={{ width: "15px", height: "15px", marginRight: "5px" }}

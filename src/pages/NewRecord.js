@@ -6,7 +6,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Checkbox from "@mui/material/Checkbox";
 import DatePicker from "@mui/lab/DatePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import { Preview, print } from 'react-html2pdf';
+import { Preview, print } from "react-html2pdf";
 
 import { CoreButton } from "../components/core";
 import KeyInputs from "../components/KeyInputs";
@@ -97,7 +97,7 @@ import { ReactComponent as BackArrow } from "../assets/icons/general/backArrow.s
 import { ReactComponent as GreenTick } from "../assets/icons/admin/greentick.svg";
 import { ReactComponent as HomeIcon } from "../assets/icons/admin/homeicon.svg";
 import { ReactComponent as PrintIcon } from "../assets/icons/admin/printicon.svg";
-import { ReactComponent as DeclineLogo } from '../assets/icons/hospital/Decline.svg'
+import { ReactComponent as DeclineLogo } from "../assets/icons/hospital/Decline.svg";
 
 const NewRecord = (props) => {
   const auth = useAuth();
@@ -189,8 +189,8 @@ const NewRecord = (props) => {
     }
   }
 
-  async function printReceipt(){
-    print('recordReceipt', 'newRecordReceipt');
+  async function printReceipt() {
+    print("recordReceipt", "newRecordReceipt");
   }
 
   if (!auth.loggedIn) return <Redirect to="/login/hospital" />;
@@ -224,9 +224,11 @@ const NewRecord = (props) => {
             </NavlinkActive>
           </ListItemsActive>
           <ListItems>
-            <Navlink to="/declinedRecords">
+            <Navlink to="#">
               <div>
-                <DeclineLogo style={{width: '15px', height: '15px', marginRight: '5px'}}/>
+                <DeclineLogo
+                  style={{ width: "15px", height: "15px", marginRight: "5px" }}
+                />
               </div>
               <div>
                 <Nbsp />
