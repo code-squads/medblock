@@ -10,3 +10,4 @@ export { default as AnyRecord } from './AnyRecord'
 export { default as AnyRecordDisplay } from './AnyRecordDisplay'
 
 export { default as PatientRegistration } from './PatientRegistration'
+export { default as HospitalRegistration } from './HospitalRegistration'
