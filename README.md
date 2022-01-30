@@ -14,7 +14,6 @@
 - [Aniruddha Shriwant](https://github.com/Aniruddha-Shriwant)
 - [Rohan Darade](https://github.com/RohanDarade)
 
-
 ## Tech Stack
 - Blockchain: 
 
@@ -31,7 +30,9 @@
   <img alt="NodeJS" src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/> <img alt="Express.js" src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/> <img alt="Twilio" src="https://img.shields.io/badge/Twilio-F22F46?style=for-the-badge&logo=Twilio&logoColor=white"/>
 
 
-
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/58624108/151685846-35210cdb-ab31-441c-aab6-fd7d4676a7a7.png">
+</div>
 
 ### Running the project locally
 
@@ -53,6 +54,8 @@ cd server && npm run dev
 ```
 npm start
 ```
+
+
 
 <div align="center">
   <img src="https://forthebadge.com/images/badges/built-with-love.svg">
