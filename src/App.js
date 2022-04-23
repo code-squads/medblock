@@ -13,6 +13,7 @@ import {
   AnyRecordDisplay,
   PatientRegistration,
   HospitalRegistration,
+  DeclinedRecords,
 } from "./pages";
 
 import { Navbar } from "./components/core";
@@ -41,6 +42,7 @@ const App = () => {
           />
           <Route exact path="/patientDashboard" component={PatientDashboard} />
           <Route exact path="/newRecord" component={NewRecord} />
+          <Route exact path="/declinedRecords" component={DeclinedRecords} />
 
           <Route exact path="/login/:type" component={Login} />
           <Route exact path="/anyRecord" component={AnyRecord} />

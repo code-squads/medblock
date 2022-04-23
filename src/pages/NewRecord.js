@@ -224,7 +224,7 @@ const NewRecord = (props) => {
             </NavlinkActive>
           </ListItemsActive>
           <ListItems>
-            <Navlink to="#">
+            <Navlink to="/declinedRecords">
               <div>
                 <DeclineLogo
                   style={{ width: "15px", height: "15px", marginRight: "5px" }}
