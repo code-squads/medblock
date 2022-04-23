@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AppOverview from "../assets/illustrations/appOverview.png";
+import AppOverview from "../assets/illustrations/appOverview2.png";
 import { CoreButton } from "../components/core";
 
 export const Container = styled.div`
@@ -46,8 +46,9 @@ export const SubHeading = styled.span`
 export const AppOveriewIllustration = styled.img.attrs({
   src: `${AppOverview}`,
 })`
-  margin-top: auto;
-  margin-bottom: 65px;
+  margin-top: 100px;
+  /* margin-bottom: 65px; */
+  width: 518px;
 `;
 export const SubContainer2 = styled.div`
   width: 50%;
@@ -82,7 +83,7 @@ export const ButtonContainer = styled.div`
   margin-top: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   @media (max-width: 600px) {
     flex-direction: column;
     justify-content: space-between;
@@ -90,7 +91,20 @@ export const ButtonContainer = styled.div`
     width: 80%;
   }
 `;
-
+export const UploadQrCodeButton = styled.input.attrs({ type: 'file'})`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFDE00;
+    font-family: 'Inter';
+    font-weight: 400;
+    border-radius: 5px;
+    width: 45%;
+    @media (max-width: 600px) {
+        width: 100%;
+    }
+    padding: 8px;
+`
 export const ScanOrButton = styled(CoreButton)`
   color: #202020;
   background-color: #ffde00;

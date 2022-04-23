@@ -35,7 +35,7 @@ const CustomNavbar = () => {
         <Navbar.Collapse className="text-center">
           <Nav className="me-auto"></Nav>
 
-          <Nav>
+          <Nav style={{columnGap: '24px', alignItems: 'center'}}>
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
@@ -43,7 +43,7 @@ const CustomNavbar = () => {
               Dashboard
             </Nav.Link>
             {auth.loggedIn ? (
-              <Button variant="light" onClick={auth.logout}>
+              <Button style={{display: 'flex', justifyContent: "center", alignItems: 'center', height: '30px'}} variant="light" onClick={auth.logout}>
                 Logout
               </Button>
             ) : (
