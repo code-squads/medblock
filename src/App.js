@@ -3,6 +3,7 @@ import NewRecord from "./pages/NewRecord";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import {
+  About,
   LandingPage,
   Login,
   AdminDashboard,
@@ -11,7 +12,7 @@ import {
   AnyRecord,
   AnyRecordDisplay,
   PatientRegistration,
-  HospitalRegistration
+  HospitalRegistration,
 } from "./pages";
 
 import { Navbar } from "./components/core";
@@ -30,6 +31,7 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/about" component={About} />
 
           <Route exact path="/adminDashboard" component={AdminDashboard} />
           <Route
@@ -40,9 +42,9 @@ const App = () => {
           <Route exact path="/patientDashboard" component={PatientDashboard} />
           <Route exact path="/newRecord" component={NewRecord} />
 
-          <Route exact path="/login/:type" component={Login}/>
-          <Route exact path="/anyRecord" component={AnyRecord}/>
-          <Route exact path="/anyRecordDisplay" component={AnyRecordDisplay}/>
+          <Route exact path="/login/:type" component={Login} />
+          <Route exact path="/anyRecord" component={AnyRecord} />
+          <Route exact path="/anyRecordDisplay" component={AnyRecordDisplay} />
 
           <Route exact path="/newPatient" component={PatientRegistration} />
           <Route exact path="/newHospital" component={HospitalRegistration} />
