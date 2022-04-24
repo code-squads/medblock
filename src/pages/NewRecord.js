@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 import TextField from "@mui/material/TextField";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -224,7 +224,7 @@ const NewRecord = (props) => {
             </NavlinkActive>
           </ListItemsActive>
           <ListItems>
-            <Navlink to="#">
+            <Navlink to="/declinedRecords">
               <div>
                 <DeclineLogo
                   style={{ width: "15px", height: "15px", marginRight: "5px" }}
@@ -576,8 +576,12 @@ const NewRecord = (props) => {
                 </Reciept>
               </RecieptContainer>
             </Preview>
-            <Buttons onClick={printReceipt}>
-              <RecieptButton background="#ffde00" color="#202020">
+            <Buttons>
+              <RecieptButton
+                onClick={printReceipt}
+                background="#ffde00"
+                color="#202020"
+              >
                 Print Reciept
                 <Nbsp />
                 <Nbsp />
@@ -587,7 +591,7 @@ const NewRecord = (props) => {
                 <PrintIcon />
               </RecieptButton>
               <RecieptButton
-                onClick={(e) => props.history.push("/dashboard")}
+                onClick={(e) => props.history.push("/hospitalDashboard")}
                 background="#ffde00"
                 color="#202020"
               >
