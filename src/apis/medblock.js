@@ -3,6 +3,7 @@ import MedBlock from '../services/medblock';
 import { AUTHORITY_TYPES } from "../Constants/authorityTypes";
 import { isValidPrivateKey, isValidAddress } from '../utils/keyValidator';
 import { figureOutGender, dateToTimestamp } from '../utils/dataUtils';
+import { linkFromTxHash } from '../Constants/txExplorer';
 
 // Login
 export async function universalLogin(pk, authorityType){
@@ -182,7 +183,7 @@ export async function addNewRecord(
         });
         console.log(receipt);
         console.log(`Transaction hash: ${receipt.transactionHash}`);
-        console.log(`View the transaction here: https://rinkeby.etherscan.io/tx/${receipt.transactionHash}`);
+        console.log(`View the transaction here: `, linkFromTxHash(receipt.transactionHash));
         return receipt;
     }catch(err){ 
         console.log("Some error sending record approval transaction from account:", senderHospitalAddress);
@@ -222,7 +223,7 @@ export async function approveRecord(accountAddress, recordDetails){
     }).then(receipt => {
         console.log(receipt);
         console.log(`Transaction hash: ${receipt.transactionHash}`);
-        console.log(`View the transaction here: https://rinkeby.etherscan.io/tx/${receipt.transactionHash}`);
+        console.log(`View the transaction here: `, linkFromTxHash(receipt.transactionHash));
     }).catch(err => {
         console.log("Some error sending record approval transaction from account:", accountAddress);
         console.log(err);
@@ -261,7 +262,7 @@ export async function declineRecord(accountAddress, recordDetails, declineMsg){
     }).then(receipt => {
         console.log(receipt);
         console.log(`Transaction hash: ${receipt.transactionHash}`);
-        console.log(`View the transaction here: https://rinkeby.etherscan.io/tx/${receipt.transactionHash}`);
+        console.log(`View the transaction here:`, linkFromTxHash(receipt.transactionHash));
     }).catch(err => {
         console.log("Some error sending record approval transaction from account:", accountAddress);
         console.log(err);
@@ -317,7 +318,7 @@ export async function newHospitalRegistration(
     });
     console.log('Transaction receipt:', receipt);
     console.log(`Transaction hash: ${receipt.transactionHash}`);
-    console.log(`View the transaction here: https://rinkeby.etherscan.io/tx/${receipt.transactionHash}`);
+    console.log(`View the transaction here: `, linkFromTxHash(receipt.transactionHash));
     return receipt;
 }
 
@@ -360,7 +361,7 @@ export async function newPatientRegistration(
     });
     console.log('Transaction receipt:', receipt);
     console.log(`Transaction hash: ${receipt.transactionHash}`);
-    console.log(`View the transaction here: https://rinkeby.etherscan.io/tx/${receipt.transactionHash}`);
+    console.log(`View the transaction here: `, linkFromTxHash(receipt.transactionHash));
     return receipt;
 }
 
@@ -430,8 +431,9 @@ export async function sendEth(fromAddress, toAddress, amountEth="0.1"){
         from: fromAddress,
         to: toAddress,
         value: web3.utils.toWei(amountEth, "ether"),
-        gas: 3000000,
-        gasPrice
+        gas: 30000,
+        gasPrice,
+        nonce: await web3.eth.getTransactionCount(fromAddress) + 1
     });
     console.log("Eth transfer tx:\n", tx);
     return tx;

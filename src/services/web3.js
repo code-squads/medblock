@@ -5,9 +5,13 @@ const INFURA_ACCESS_TOKEN = process.env.REACT_APP_INFURA_ACCESS_TOKEN;
 console.log(INFURA_PROJECT_ID);
 console.log(INFURA_ACCESS_TOKEN);
 
-const infuraURL = `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`;
+// const infuraURL = `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`;
+const infuraURL = `https://dev.kardiachain.io/`;
+
 const web3 = new Web3(infuraURL);
 window.customWeb3 = web3;
+
+window.metamaskweb3 = new Web3(window.ethereum);
 
 console.log("Web3 config:");
 console.log("Infura access token:", INFURA_ACCESS_TOKEN);
