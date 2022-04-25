@@ -9,6 +9,7 @@ import {
   AdminDashboard,
   HospitalDashboard,
   PatientDashboard,
+  UniversalDashboard,
   AnyRecord,
   AnyRecordDisplay,
   PatientRegistration,
@@ -34,6 +35,7 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/about" component={About} />
 
+          <Route exact path="/dashboard" component={UniversalDashboard} />
           <Route exact path="/adminDashboard" component={AdminDashboard} />
           <Route
             exact

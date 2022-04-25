@@ -42,7 +42,6 @@
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
     "date-fns": "^2.26.0",
-    "fast-two-sms": "^3.0.0",
     "jsqrcode": "0.0.7",
     "labelmake": "^2.0.20",
     "prettier": "^2.5.0",

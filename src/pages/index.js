@@ -5,6 +5,7 @@ export { default as About } from "./About";
 export { default as HospitalDashboard } from "./HospitalDashboard";
 export { default as PatientDashboard } from "./PatientDashboard";
 export { default as AdminDashboard } from "./AdminDashboard";
+export { default as UniversalDashboard } from "./UniversalDashboard";
 
 export { default as LandingPage } from "./LandingPage";
 
