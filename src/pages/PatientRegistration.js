@@ -255,8 +255,8 @@ const PatientRegistration = () => {
                             onChange={(e) => setGender(e.target.value)}
                             label="Gender"
                           >
-                            <MenuItem value={0}>Female</MenuItem>
-                            <MenuItem value={1}>Male</MenuItem>
+                            <MenuItem value={0}>Male</MenuItem>
+                            <MenuItem value={1}>Female</MenuItem>
                             <MenuItem value={2}>Non Binary</MenuItem>
                           </Select>
                         </FormControl>

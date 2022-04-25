@@ -180,7 +180,7 @@ const NewRecord = (props) => {
       );
       console.log(response);
       setIsProcessing(false);
-      setProgress(PROGRESS_STATUSES.RECIEPT);
+      if (response) setProgress(PROGRESS_STATUSES.RECIEPT);
     } catch (err) {
       alert("Some error occured during adding new record !!");
       console.log(err);
@@ -591,7 +591,7 @@ const NewRecord = (props) => {
                 <PrintIcon />
               </RecieptButton>
               <RecieptButton
-                onClick={(e) => props.history.push("/hospitalDashboard")}
+                onClick={(e) => props.history.push("/dashboard")}
                 background="#ffde00"
                 color="#202020"
               >
