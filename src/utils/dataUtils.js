@@ -6,6 +6,8 @@ export const figureOutGender = idx => genders[idx];
 
 export const getInitials = name => name.substring(0,1);
 
+export const cidToURL = cid => `https://ipfs.infura.io/ipfs/` + String(cid);
+
 const second = 1000;
 const minute = second*60;
 const hour = minute*60;

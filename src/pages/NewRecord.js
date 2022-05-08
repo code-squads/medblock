@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 import TextField from "@mui/material/TextField";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -116,6 +116,7 @@ const NewRecord = (props) => {
   const [diagnoseDate, setDiagnoseDate] = useState(new Date());
   const [wasAdmitted, setWasAdmitted] = useState(false);
   const [dischargeDate, setDischargeDate] = useState(new Date());
+  const [uploadedFiles, setuploadedFiles] = useState([]);
 
   const [finalPatientAddress, setFinalPatientAddress] = useState(undefined);
   const [basicPatientInfo, setBasicPatientInfo] = useState({
@@ -160,6 +161,19 @@ const NewRecord = (props) => {
       alert("Please fill out all the fields !!");
       return;
     }
+    console.log('new record details:');
+    console.log({
+      finalPatientAddress,
+      disease,
+      treatment,
+      medication,
+      drname,
+      hospitaRecordlID,
+      wasAdmitted,
+      diagnoseDate,
+      dischargeDate,
+      uploadedFiles
+    });
     setProgress(PROGRESS_STATUSES.CONFIRM);
   }
 
@@ -176,6 +190,7 @@ const NewRecord = (props) => {
         wasAdmitted,
         diagnoseDate,
         dischargeDate,
+        uploadedFiles,
         auth.wallet.address
       );
       console.log(response);
@@ -355,6 +370,12 @@ const NewRecord = (props) => {
                     />
                   </LocalizationProvider>
                   <br />
+                  <input
+                    type="file"
+                    multiple 
+                    label="Upload file" 
+                    accept="image/x-png,image/jpg,image/jpeg,image/png,.pdf"
+                    onChange={e => setuploadedFiles(e.target.files)} />
                 </div>
               </InputSubContainer>
             </InputContainer>

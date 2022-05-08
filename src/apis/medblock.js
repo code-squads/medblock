@@ -2,8 +2,9 @@ import web3 from "../services/web3";
 import MedBlock from "../services/medblock";
 import { AUTHORITY_TYPES } from "../Constants/authorityTypes";
 import { isValidPrivateKey, isValidAddress } from "../utils/keyValidator";
-import { figureOutGender, dateToTimestamp } from "../utils/dataUtils";
+import { figureOutGender, dateToTimestamp, cidToURL } from "../utils/dataUtils";
 import { linkFromTxHash } from "../Constants/txExplorer";
+import { uploadFilesToIPFS } from "./ipfs";
 
 // Login
 export async function universalLogin(pk, authorityType) {
@@ -137,6 +138,7 @@ export async function addNewRecord(
   wasAdmitted,
   diagnoseDateObj,
   dischargeDateObj,
+  uploadedFiles,
   senderHospitalAddress
 ) {
   const diagnoseDateString = dateToTimestamp(diagnoseDateObj);
@@ -163,8 +165,21 @@ export async function addNewRecord(
     hospitalRecordID,
     diagnoseDateString,
     dischargeDateString,
+    uploadedFiles,
     senderHospitalAddress,
   });
+
+  const results = await uploadFilesToIPFS(uploadedFiles);
+  console.log("upload result:", results);
+  
+  console.log("CID of files on IPFS:");
+  results.forEach(result => console.log(result.path));
+  console.log();
+  console.log("View files on IPFS:");
+  results.forEach(result => console.log(cidToURL(result.path)));
+  console.log("didn't update data blockchain due to test blocker");
+  return;
+
   const tx = MedBlock.methods.addRecord(
     patientBlockchainAddress,
     disease,
