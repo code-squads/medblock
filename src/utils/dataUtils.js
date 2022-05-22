@@ -33,6 +33,11 @@ export const dateFromTimestamp = timestamp => {
     return dd + '/' + mm + '/' + yyyy;
 }
 
+export function cidToURL(cid){
+    if(!cid)
+        return "";
+    return `https://ipfs.infura.io/ipfs/${cid}`;
+}
 
 export async function processRecords(allRecords){
     const processedRecords = {
@@ -42,13 +47,25 @@ export async function processRecords(allRecords){
     }
     
     for(let i=0; i<allRecords.length; i++){
-        let record = allRecords[i];
-        let hospitalInfo = await getHospital(record.senderHospital);
+        const record = allRecords[i];
+        const hospitalInfo = await getHospital(record.senderHospital);
+
+        const reportsList = record.reports.map(report => {
+            const nameParts = report[0].split('.');
+            return { 
+                name: nameParts.slice(0, -1).join('.'),
+                cid: report[1],
+                extension: nameParts.length === 1 ? "unknown" : nameParts[nameParts.length - 1],
+                url: cidToURL(report[1]),
+            }
+        });
+
         let processedRecord = {
             ...record,
             recordID: i,
             hospitalInfo,
-            medicationList: record.medication.split(',')
+            medicationList: record.medication.split(','),
+            reportsList,
         };
 
         if(record.approved)

@@ -65,6 +65,7 @@ const PatientDashboard = () => {
         console.log("Fetching all records");
         getRecordHistory(patientBlockchainAddress)
             .then(rawRecords => {
+                console.log("raw records:", rawRecords);
                 processRecords(rawRecords)
                     .then(processedRecords => {
                         setMedicalHistory(processedRecords.medicalHistory)

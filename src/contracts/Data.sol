@@ -46,6 +46,12 @@ library Data{
         uint256 authorityTerminalDate;
     }
 
+    struct Media {
+        string title;
+        // string description;
+        string cid;
+    }
+
     // Object to store medical record information
     // This is supposed to be added by the hospital 
     struct MedicalData {
@@ -73,5 +79,7 @@ library Data{
         
         uint256 diagnoseDate;
         uint256 dischargeDate;      // Set to 0 if patient was not admitted
+
+        Media[] reports;
     }
 }
