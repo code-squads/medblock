@@ -41,6 +41,7 @@ import {
     PatientDetailsGender,
     Backdrop,
 } from './PatientDashboard.styled'
+import ReportsModal from '../components/ReportsModal'
 
 const PatientDashboard = () => {
     const auth = useAuth();
@@ -55,6 +56,7 @@ const PatientDashboard = () => {
 
     const [showAddress, setShowAddress] = useState(false)
     const [modalState, setModalState] = useState(false)
+    const [reportsModalState, setReportsModalState] = useState(false)
 
     // true = medicalHistory, false = pendingHistory
     const [toggle, setToggle] = useState(true)
@@ -133,6 +135,17 @@ const PatientDashboard = () => {
     return (
         <Container>
             {modalState &&<Backdrop onClick={() => setModalState(false)}/>}
+            {reportsModalState &&<Backdrop onClick={() => setReportsModalState(false)}/>}
+            {reportsModalState && 
+                <ReportsModal
+                    modalState={reportsModalState}
+                    medicalHistory={toggle}
+                    setReportsModalState={setReportsModalState}
+                    setModalState={setModalState}
+                    onApproveClickHandler={onApproveClickHandler}
+                    onDeclineClickHandler={onDeclineClickHandler}
+                />
+            }
             {modalState &&
                 <Modal 
                     medicalHistory={toggle} 
@@ -140,6 +153,7 @@ const PatientDashboard = () => {
                     setModalState={setModalState}
                     onApproveClickHandler={onApproveClickHandler}
                     onDeclineClickHandler={onDeclineClickHandler}
+                    setReportsModalState={setReportsModalState}
                 />
             }
             <SubContainer>
