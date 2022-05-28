@@ -3,11 +3,13 @@ import { Redirect } from 'react-router-dom'
 import List from '../components/List'
 import Modal from '../components/Modal'
 
+import Loader from "../components/Loader"
+
 import { getRecordHistory, approveRecord, declineRecord } from "../apis/medblock"
 import { addDeclinedRecord } from "../apis/declinedRecords"
 import { AUTHORITY_TYPES } from "../Constants/authorityTypes"
 import { useAuth } from "../services/authorization";
-import { 
+import {
     figureOutGender,
     getInitials,
     dateFromTimestamp,
@@ -50,7 +52,9 @@ const PatientDashboard = () => {
 
     const [MedicalHistory, setMedicalHistory] = useState([]);
     const [PendingRequests, setPendingRequests] = useState([]);
-    const [declinedRecords, setDeclinedRecords] = useState([]);
+    // const [declinedRecords, setDeclinedRecords] = useState([]);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [refresh, setRefresh] = useState(Number(new Date()));
 
@@ -61,18 +65,18 @@ const PatientDashboard = () => {
     // true = medicalHistory, false = pendingHistory
     const [toggle, setToggle] = useState(true)
 
-    useEffect(()=>{
-        if(!patientBlockchainAddress)
+    useEffect(() => {
+        if (!patientBlockchainAddress)
             return;
         console.log("Fetching all records");
+        setIsLoading(true);
         getRecordHistory(patientBlockchainAddress)
             .then(rawRecords => {
-                console.log("raw records:", rawRecords);
                 processRecords(rawRecords)
                     .then(processedRecords => {
+                        setIsLoading(false);
                         setMedicalHistory(processedRecords.medicalHistory)
                         setPendingRequests(processedRecords.pendingRecords)
-                        setDeclinedRecords(processedRecords.declinedRecords)
                     })
                     .catch(err => {
                         console.log("Some error fetching records", err);
@@ -83,7 +87,7 @@ const PatientDashboard = () => {
     }, [refresh, patientBlockchainAddress]);
 
     const onApproveClickHandler = (item) => {
-        approveRecord(patientBlockchainAddress, item).then(()=>{
+        approveRecord(patientBlockchainAddress, item).then(() => {
             console.log("Successfully approved record!");
             setToggle(true);
         }).catch(err => {
@@ -97,10 +101,10 @@ const PatientDashboard = () => {
         console.log(item);
         const declineMsg = window.prompt("Enter decline message:", "invalid data");
 
-        declineRecord(item.patient, item, declineMsg).then(()=>{
+        declineRecord(item.patient, item, declineMsg).then(() => {
             console.log("Successfully declined record!");
             addDeclinedRecord(item, `${PatientDetails.fname} ${PatientDetails.lname}`, declineMsg)
-                .then(()=>{
+                .then(() => {
                     console.log("Successfully cached declined record!");
                 }).catch(err => {
                     alert("Some err occured while caching declined record :(\nReload & try again");
@@ -112,25 +116,13 @@ const PatientDashboard = () => {
         })
     }
 
-    console.log("Declined records: \n", declinedRecords);
-
     if(!auth.loggedIn || !auth.entityInfo || !auth.wallet || !auth.authority){
         auth.logout();
         return <Redirect to='/login/patient' />
     }
-        
-    if(auth.authority !== AUTHORITY_TYPES.PATIENT)
-        return <Redirect to='/' />
 
-    // Testing Purpose Dummy
-    // const PatientDetails = {
-    //     fname: 'Rupesh',
-    //     lname: 'Raut',
-    //     gender: 'male',
-    //     birthdate: '12/03/2003',
-    //     phone: '9137357003',
-    //     residentialAddress: 'Mumbai, Maharashtra'
-    // }
+    if (auth.authority !== AUTHORITY_TYPES.PATIENT)
+        return <Redirect to='/' />
 
     return (
         <Container>
@@ -147,9 +139,9 @@ const PatientDashboard = () => {
                 />
             }
             {modalState &&
-                <Modal 
-                    medicalHistory={toggle} 
-                    modalState={modalState} 
+                <Modal
+                    medicalHistory={toggle}
+                    modalState={modalState}
                     setModalState={setModalState}
                     onApproveClickHandler={onApproveClickHandler}
                     onDeclineClickHandler={onDeclineClickHandler}
@@ -159,40 +151,40 @@ const PatientDashboard = () => {
             <SubContainer>
                 <PatientNameContainer>
                     <Cirlce>
-                        { getInitials(PatientDetails.fname) }
+                        {getInitials(PatientDetails.fname)}
                     </Cirlce>
                     <PatientName>
-                        { PatientDetails.fname } { PatientDetails.lname } 
+                        {PatientDetails.fname} {PatientDetails.lname}
                     </PatientName>
                     <PatientGender>
-                        { figureOutGender(PatientDetails.gender) }
+                        {figureOutGender(PatientDetails.gender)}
                     </PatientGender>
                 </PatientNameContainer>
                 <PatientDetailsContainer>
                     <PatientDetailsSub>
-                        DOB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; 
-                        { dateFromTimestamp(PatientDetails.birthdate) }
+                        DOB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;
+                        {dateFromTimestamp(PatientDetails.birthdate)}
                     </PatientDetailsSub>
                     <PatientDetailsSub>
-                        { calculateAge(PatientDetails.birthdate) }
+                        {calculateAge(PatientDetails.birthdate)}
                     </PatientDetailsSub>
                     <PatientDetailsGender>
                         Gender&nbsp;: {figureOutGender(PatientDetails.gender)}
                     </PatientDetailsGender>
                     <PatientDetailsSub>
-                        Phone&nbsp;&nbsp;&nbsp;: +91 { PatientDetails.phone }
+                        Phone&nbsp;&nbsp;&nbsp;: +91 {PatientDetails.phone}
                     </PatientDetailsSub>
                 </PatientDetailsContainer>
                 <PatientAddressContainer open={showAddress}>
                     <PatientAddressSub>
-                        Address 
+                        Address
                         <DownArrow
                             open={showAddress}
-                            onClick={() => setShowAddress(!showAddress)}/>
+                            onClick={() => setShowAddress(!showAddress)} />
                     </PatientAddressSub>
                     {showAddress &&
                         <PatientAddress>
-                            { PatientDetails.residentialAddress }
+                            {PatientDetails.residentialAddress}
                         </PatientAddress>
                     }
                 </PatientAddressContainer>
@@ -203,23 +195,25 @@ const PatientDashboard = () => {
             </SubContainer>
 
             {/* Mobile UI */}
+
+
             <ShowingSearchResultContainerMobile>
                 <ShowingSearchResultText>
                     {
                         toggle ?
                             MedicalHistory.length === 0 ?
-                            "No records to show"
-                            : MedicalHistory.length === 1 ?
-                            "Showing 1 result"
-                            : 
-                            `Showing result 1 - ${MedicalHistory.length}  out of ${MedicalHistory.length} results`
-                        :
+                                "No records to show"
+                                : MedicalHistory.length === 1 ?
+                                    "Showing 1 result"
+                                    :
+                                    `Showing result 1 - ${MedicalHistory.length}  out of ${MedicalHistory.length} results`
+                            :
                             PendingRequests.length === 0 ?
-                            "No records to show"
-                            : PendingRequests.length === 1 ?
-                            "Showing 1 result"
-                            : 
-                            `Showing result 1 - ${PendingRequests.length}  out of ${PendingRequests.length} results`
+                                "No records to show"
+                                : PendingRequests.length === 1 ?
+                                    "Showing 1 result"
+                                    :
+                                    `Showing result 1 - ${PendingRequests.length}  out of ${PendingRequests.length} results`
                     }
                 </ShowingSearchResultText>
                 <ShowingSearchResultText2>
@@ -229,39 +223,44 @@ const PatientDashboard = () => {
                     </RefreshButton>
                 </ShowingSearchResultText2>
             </ShowingSearchResultContainerMobile>
+
+
             {/* Mobile UI */}
 
-            <SubContainer2>
-                <ShowingSearchResultContainer>
-                    <ShowingSearchResultText>
-                        {
-                            toggle ?
-                                MedicalHistory.length === 0 ?
-                                "No records to show"
-                                : MedicalHistory.length === 1 ?
-                                "Showing 1 result"
-                                : 
-                                `Showing result 1 - ${MedicalHistory.length}  out of ${MedicalHistory.length} results`
-                            :
-                                PendingRequests.length === 0 ?
-                                "No records to show"
-                                : PendingRequests.length === 1 ?
-                                "Showing 1 result"
-                                : 
-                                `Showing result 1 - ${PendingRequests.length}  out of ${PendingRequests.length} results`
-                        }
-                    </ShowingSearchResultText>
-                    <ShowingSearchResultText2>
-                        last updated at 4:30 PM IST
-                        <RefreshButton onClick={e => setRefresh(Number(new Date()))}>
-                            Refresh
-                        </RefreshButton>
-                    </ShowingSearchResultText2>
-                </ShowingSearchResultContainer>
-                <List data={toggle ? MedicalHistory : PendingRequests} setModalState={setModalState}/>
-                <Note>Click the record to view the details</Note>
-            </SubContainer2>
-            
+            {isLoading ? <Loader /> :
+                <SubContainer2>
+
+                    <ShowingSearchResultContainer>
+                        <ShowingSearchResultText>
+                            {
+                                toggle ?
+                                    MedicalHistory.length === 0 ?
+                                        "No records to show"
+                                        : MedicalHistory.length === 1 ?
+                                            "Showing 1 result"
+                                            :
+                                            `Showing result 1 - ${MedicalHistory.length}  out of ${MedicalHistory.length} results`
+                                    :
+                                    PendingRequests.length === 0 ?
+                                        "No records to show"
+                                        : PendingRequests.length === 1 ?
+                                            "Showing 1 result"
+                                            :
+                                            `Showing result 1 - ${PendingRequests.length}  out of ${PendingRequests.length} results`
+                            }
+                        </ShowingSearchResultText>
+                        <ShowingSearchResultText2>
+                            last updated at 4:30 PM IST
+                            <RefreshButton onClick={e => setRefresh(Number(new Date()))}>
+                                Refresh
+                            </RefreshButton>
+                        </ShowingSearchResultText2>
+                    </ShowingSearchResultContainer>
+                    <List data={toggle ? MedicalHistory : PendingRequests} setModalState={setModalState} />
+                    <Note>Click the record to view the details</Note>
+                </SubContainer2>
+            }
+
             {/* Mobile UI */}
             <ToggleContainerMobile>
                 <Toggle selected={toggle} onClick={() => setToggle(true)}>Medical History</Toggle>
