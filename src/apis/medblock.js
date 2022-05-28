@@ -2,8 +2,9 @@ import web3 from "../services/web3";
 import MedBlock from "../services/medblock";
 import { AUTHORITY_TYPES } from "../Constants/authorityTypes";
 import { isValidPrivateKey, isValidAddress } from "../utils/keyValidator";
-import { figureOutGender, dateToTimestamp } from "../utils/dataUtils";
+import { figureOutGender, dateToTimestamp, cidToURL } from "../utils/dataUtils";
 import { linkFromTxHash } from "../Constants/txExplorer";
+import { uploadFilesToIPFS } from "./ipfs";
 
 // Login
 export async function universalLogin(pk, authorityType) {
@@ -137,6 +138,7 @@ export async function addNewRecord(
   wasAdmitted,
   diagnoseDateObj,
   dischargeDateObj,
+  uploadedFiles,
   senderHospitalAddress
 ) {
   const diagnoseDateString = dateToTimestamp(diagnoseDateObj);
@@ -154,6 +156,15 @@ export async function addNewRecord(
   // if(!recordID && recordID !== 0)
   //     return new Error("Invalid record number / ID");
 
+  const results = await uploadFilesToIPFS(uploadedFiles);
+  console.log("file upload result:", results);
+
+  const cids = results.map(result => result.path);
+  console.log("View files on IPFS:");
+  results.forEach(result => console.log(cidToURL(result.path)));
+
+  const fileNames = results.map(result => result.name);
+
   console.log("New record details: ", {
     patientBlockchainAddress,
     disease,
@@ -163,8 +174,10 @@ export async function addNewRecord(
     hospitalRecordID,
     diagnoseDateString,
     dischargeDateString,
-    senderHospitalAddress,
+    cids,
+    titles: fileNames
   });
+
   const tx = MedBlock.methods.addRecord(
     patientBlockchainAddress,
     disease,
@@ -173,7 +186,9 @@ export async function addNewRecord(
     drName,
     hospitalRecordID,
     diagnoseDateString,
-    dischargeDateString
+    dischargeDateString,
+    cids,
+    fileNames,
   );
   console.log("New record transaction: ", tx);
 
@@ -497,9 +512,8 @@ export async function sendEth(fromAddress, toAddress, amountEth = "0.1") {
     from: fromAddress,
     to: toAddress,
     value: web3.utils.toWei(amountEth, "ether"),
-    gas: 30000,
+    gas: 3000000,
     gasPrice,
-    nonce: (await web3.eth.getTransactionCount(fromAddress)) + 1,
   });
   console.log("Eth transfer tx:\n", tx);
   return tx;

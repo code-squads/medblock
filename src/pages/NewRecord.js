@@ -8,6 +8,8 @@ import DatePicker from "@mui/lab/DatePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { Preview, print } from "react-html2pdf";
 
+import { ModalUpload, Backdrop } from "../components/ModalUpload";
+
 import { CoreButton } from "../components/core";
 import KeyInputs from "../components/KeyInputs";
 
@@ -94,6 +96,7 @@ import { ReactComponent as SettingsLogo } from "../assets/icons/hospital/setting
 import { ReactComponent as HospitalLogo } from "../assets/icons/hospital/hospital.svg";
 import { ReactComponent as TickMark } from "../assets/icons/hospital/greentick.svg";
 import { ReactComponent as BackArrow } from "../assets/icons/general/backArrow.svg";
+import { ReactComponent as UploadLogo } from "../assets/icons/hospital/upload.svg";
 import { ReactComponent as GreenTick } from "../assets/icons/admin/greentick.svg";
 import { ReactComponent as HomeIcon } from "../assets/icons/admin/homeicon.svg";
 import { ReactComponent as PrintIcon } from "../assets/icons/admin/printicon.svg";
@@ -105,6 +108,7 @@ const NewRecord = (props) => {
   //    key | add | confirm | receept
   const [progress, setProgress] = useState(PROGRESS_STATUSES.PATIENT_ADDRESS);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [modalState, setModalState] = useState(false);
 
   const hospitalInfo = auth.entityInfo;
 
@@ -116,6 +120,7 @@ const NewRecord = (props) => {
   const [diagnoseDate, setDiagnoseDate] = useState(new Date());
   const [wasAdmitted, setWasAdmitted] = useState(false);
   const [dischargeDate, setDischargeDate] = useState(new Date());
+  const [uploadedFiles, setuploadedFiles] = useState([]);
 
   const [finalPatientAddress, setFinalPatientAddress] = useState(undefined);
   const [basicPatientInfo, setBasicPatientInfo] = useState({
@@ -125,9 +130,20 @@ const NewRecord = (props) => {
     gender: "Male",
   });
 
-  function goBackToAddress() {
-    setProgress(PROGRESS_STATUSES.PATIENT_ADDRESS);
+  function uploadClickHandler() {
+    setModalState(true);
   }
+
+  function uploadFileHandler(files) {
+    // const fileToUpload = { ...files };
+    setuploadedFiles(files);
+    // console.log(fileToUpload);
+  }
+
+  function closeModal() {
+    setModalState(false);
+  }
+
   async function processKeyToDetails(patientAddress) {
     setIsProcessing(true);
     try {
@@ -160,6 +176,19 @@ const NewRecord = (props) => {
       alert("Please fill out all the fields !!");
       return;
     }
+    console.log("new record details:");
+    console.log({
+      finalPatientAddress,
+      disease,
+      treatment,
+      medication,
+      drname,
+      hospitaRecordlID,
+      wasAdmitted,
+      diagnoseDate,
+      dischargeDate,
+      uploadedFiles,
+    });
     setProgress(PROGRESS_STATUSES.CONFIRM);
   }
 
@@ -176,6 +205,7 @@ const NewRecord = (props) => {
         wasAdmitted,
         diagnoseDate,
         dischargeDate,
+        uploadedFiles,
         auth.wallet.address
       );
       console.log(response);
@@ -196,6 +226,15 @@ const NewRecord = (props) => {
   if (!auth.loggedIn) return <Redirect to="/login/hospital" />;
   return (
     <HospitalDashboardContainer>
+      {modalState && <Backdrop onClick={() => setModalState(false)} />}
+      {modalState && (
+        <ModalUpload
+          closeModal={closeModal}
+          // uploadedFiles={Object.values(uploadedFiles)}
+          uploadedFiles={uploadedFiles}
+          uploadFileHandler={uploadFileHandler}
+        />
+      )}
       <Left>
         <NavMenuList>
           <ListItems>
@@ -355,16 +394,26 @@ const NewRecord = (props) => {
                     />
                   </LocalizationProvider>
                   <br />
+                  {/* <input
+                    type="file"
+                    multiple
+                    label="Upload file"
+                    accept="image/x-png,image/jpg,image/jpeg,image/png,.pdf"
+                    onChange={(e) => {
+                      setuploadedFiles(e.target.files);
+                      console.log(e.target.files);
+                    }}
+                  /> */}
                 </div>
               </InputSubContainer>
             </InputContainer>
             <Buttons>
               <CoreButton
-                onClick={goBackToAddress}
+                onClick={uploadClickHandler} //change to open upload modal
                 // style={{ width: "150px", margin: "auto" }}
-                background="#F23F3F"
+                background="#387ED1"
               >
-                <BackArrow /> &nbsp; Go back
+                <UploadLogo /> Upload reports
               </CoreButton>
               <CoreButton
                 disabled={isProcessing}
@@ -475,6 +524,20 @@ const NewRecord = (props) => {
                         </DetailsText>
                       </RightDetailsMedical>
                     </EachDetail>
+                    {uploadedFiles.length > 0 &&
+                      <EachDetail>
+                        <LeftDetailsMedical>
+                          <DetailsText>Reports</DetailsText>
+                        </LeftDetailsMedical>
+                        <RightDetailsMedical>
+                          <DetailsText>
+                            :<Nbsp />
+                            <Nbsp />
+                            {uploadedFiles.length}{uploadedFiles.length === 1 ? ' file uploaded' : ' files uploaded'}
+                          </DetailsText>
+                        </RightDetailsMedical>
+                      </EachDetail>
+                    }
                     <EachDetail>
                       <LeftDetailsMedical>
                         <DetailsText>Diagnosed Date</DetailsText>
