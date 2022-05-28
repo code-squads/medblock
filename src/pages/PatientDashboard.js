@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import List from '../components/List'
 import Modal from '../components/Modal'
 
-import Loader from "../components/core/Loader"
+import Loader from "../components/Loader"
 
 import { getRecordHistory, approveRecord, declineRecord } from "../apis/medblock"
 import { addDeclinedRecord } from "../apis/declinedRecords"
