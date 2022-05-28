@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 import TextField from "@mui/material/TextField";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";

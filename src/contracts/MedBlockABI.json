@@ -2,6 +2,27 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "adminName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "adminRegisteredNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "adminResidentialAddress",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "patient",
 				"type": "address"
@@ -40,6 +61,16 @@
 				"internalType": "uint256",
 				"name": "dischargeDate",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string[]",
+				"name": "cids",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "titles",
+				"type": "string[]"
 			}
 		],
 		"name": "addRecord",
@@ -51,6 +82,19 @@
 			}
 		],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -94,236 +138,6 @@
 			}
 		],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "hospitalAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "residentialAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "phone",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "govtLicenseNumber",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "authorityIssueDate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "authorityTerminalDate",
-				"type": "uint256"
-			}
-		],
-		"name": "hospitalRegistration",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "hospitalAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "residentialAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "phone",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "govtLicenseNumber",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "authorityIssueDate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "authorityTerminalDate",
-				"type": "uint256"
-			}
-		],
-		"name": "modifyHospitalData",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "patientAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "fname",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "lname",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "phone",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "residentialAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "birthdate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum Data.Gender",
-				"name": "gender",
-				"type": "uint8"
-			}
-		],
-		"name": "modifyUserData",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "adminName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "adminRegisteredNumber",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "adminResidentialAddress",
-				"type": "string"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "patientAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "fname",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "lname",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "phone",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "residentialAddress",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "birthdate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum Data.Gender",
-				"name": "gender",
-				"type": "uint8"
-			}
-		],
-		"name": "userRegistration",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "admin",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -422,6 +236,23 @@
 						"internalType": "uint256",
 						"name": "dischargeDate",
 						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "cid",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Data.Media[]",
+						"name": "reports",
+						"type": "tuple[]"
 					}
 				],
 				"internalType": "struct Data.MedicalData[]",
@@ -554,6 +385,23 @@
 						"internalType": "uint256",
 						"name": "dischargeDate",
 						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "cid",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Data.Media[]",
+						"name": "reports",
+						"type": "tuple[]"
 					}
 				],
 				"internalType": "struct Data.MedicalData",
@@ -616,6 +464,55 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "hospitalAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "govtLicenseNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityIssueDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityTerminalDate",
+				"type": "uint256"
+			}
+		],
+		"name": "hospitalRegistration",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "isAdmin",
 		"outputs": [
@@ -626,6 +523,153 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "hospitalAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "govtLicenseNumber",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityIssueDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "authorityTerminalDate",
+				"type": "uint256"
+			}
+		],
+		"name": "modifyHospitalData",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "patientAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "fname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "lname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "birthdate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Data.Gender",
+				"name": "gender",
+				"type": "uint8"
+			}
+		],
+		"name": "modifyUserData",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "patientAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "fname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "lname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "residentialAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "birthdate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Data.Gender",
+				"name": "gender",
+				"type": "uint8"
+			}
+		],
+		"name": "userRegistration",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

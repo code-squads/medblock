@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+import SwiperCore, { Navigation, Pagination } from 'swiper';
 
-import { dateFromTimestamp } from '../utils/dataUtils'
 import { ReactComponent as ExpandArrow } from '../assets/icons/general/expandArrow.svg'
+import PdfReports from './pdfReports'
+SwiperCore.use([Navigation, Pagination]);
+
 
 export const Container = styled.div`
     display: flex;
@@ -103,20 +109,27 @@ export const Button = styled.div`
       filter: brightness(97%);
     }
 `
+const Link = styled.a`
+    text-decoration: none;
+`
 
-const Modal = props =>{
+const ReportsModal = props =>{
     const {
         modalState,
-        setModalState,
         medicalHistory,
+        setReportsModalState,
+        setModalState,
         onApproveClickHandler,
-        onDeclineClickHandler,
-        setReportsModalState
+        onDeclineClickHandler
     } = props;
 
-    const [treatmentState, setTreatmentState] = useState(false)
-    const [medicationState, setMedicationState] = useState(false)
+    const [imageReports, setImageReports] = useState([]) 
+    const [pdfReports, setPdfReports] = useState([])
 
+    useEffect(() => {
+        setImageReports(modalState.reportsList.filter(report => report.extension === "png" || report.extension === "jpg" || report.extension === "jpeg"))
+        setPdfReports(modalState.reportsList.filter(report => report.extension === "pdf"))
+    }, [])
 
     return (
         <Container>
@@ -125,62 +138,33 @@ const Modal = props =>{
                 <ModalHospitalName>{modalState.hospitalInfo.name}</ModalHospitalName>
                 <ModalDiseaseName>{modalState.disease}</ModalDiseaseName>
             </HeadingContainer>
-                {
-                    modalState.dischargeDate === '0' ?
-                    <ModalSubHeading>
-                        Diagnosis/treatment on { dateFromTimestamp(modalState.diagnoseDate) }
-                    </ModalSubHeading>
-                    :
-                    <ModalSubHeading>
-                        Admitted on { dateFromTimestamp(modalState.diagnoseDate) }
-                        <br/>
-                        Discharged on { dateFromTimestamp(modalState.dischargeDate) }
-                    </ModalSubHeading>
-                }
             <ModalSubHeading>
-                Operating Doctor : {modalState.DrName}
+                Reports : 
             </ModalSubHeading>
-            <DropdownContainer open={treatmentState}>
-                <ModalSubHeading>
-                    Treatment 
-                    <DownArrow 
-                        src="./Expand Arrow.svg"
-                        style={{marginLeft: '35px'}}
-                        open={treatmentState}
-                        onClick={() => setTreatmentState(!treatmentState)}
-                    />
-                </ModalSubHeading>
-                <ModalContent>
-                    {modalState.treatment}
-                    <br/>
-                    In-Hospital record ID: {modalState.hospitalRecordID}
-                </ModalContent>
-            </DropdownContainer>
-            <DropdownContainer open={medicationState}>
-                <ModalSubHeading>
-                    Medication
-                    <DownArrow 
-                        src="./Expand Arrow.svg"
-                        style={{marginLeft: '29px'}}
-                        open={medicationState}
-                        onClick={() => setMedicationState(!medicationState)}
-                    />
-                </ModalSubHeading>
-                <ModalContent>
-                    <ol style={{margin:"0px", marginLeft: "20px", padding:"0px"}}>
-                        {modalState.medicationList.map((item, idx) => {
-                            return (
-                                <li key={item + idx}>
-                                    {item}
-                                </li>
-                            )
-                        })}
-                    </ol>
-                </ModalContent>
-            </DropdownContainer>
-            <ModalSubHeading>
-                Hospital's blockchain address : {modalState.senderHospital}
-            </ModalSubHeading>
+            <div style={{width: "100%", height: "300px", textAlign: "center"}}>
+            {imageReports.length === 0 && <div style={{marginTop: '100px'}}>"No reports found !"</div>}
+            {imageReports.length > 0 && <Swiper
+                spaceBetween={50}
+                slidesPerView={1}
+                centeredSlides
+                navigation
+                pagination
+                >
+                {imageReports.map(report => {
+                    return (
+                        <SwiperSlide>
+                            <div style={{height: "300px", display: "flex", justifyContent: "center"}}>
+                                <Link href={report.url} target="_blank">
+                                    <img height={"300px"} src={report.url}/>
+                                </Link>
+                            </div>
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>} 
+            </div>
+            
+            {pdfReports.length > 0 && <PdfReports reports={pdfReports}/>}
             <ModalFooter>
                 <Button 
                     bgcolor='#FFDE00' 
@@ -191,11 +175,12 @@ const Modal = props =>{
                         color: '#404040'
                     }}
                     onClick={() => {
-                        setReportsModalState(modalState);
-                        setModalState(false)
+                        setModalState(modalState)
+                        setReportsModalState(false);
                     }}
-                >View Reports</Button>
-                {medicalHistory &&<Button onClick={() => setModalState(false)}>Close</Button>}
+                >View Summary</Button>
+                {medicalHistory &&<Button onClick={() => setReportsModalState(false)}>Close</Button>}
+                {/* {medicalHistory &&<Button onClick={() => setModalState(false)}>Close</Button>} */}
                 {!medicalHistory &&
                     <Button 
                         bgcolor='#6FD141' 
@@ -222,4 +207,4 @@ const Modal = props =>{
     )
 }
 
-export default Modal
+export default ReportsModal

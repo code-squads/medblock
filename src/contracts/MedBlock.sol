@@ -157,22 +157,31 @@ contract MedBlock is AdminAuthorized {
         string memory DrName,
         string memory hospitalRecordID,
         uint256 diagnoseDate,
-        uint256 dischargeDate
+        uint256 dischargeDate,
+        string[] memory cids,
+        string[] memory titles
     ) public returns (uint256) {
-        Data.MedicalData memory newRecord = Data.MedicalData({
-            senderHospital: msg.sender,
-            approved: false,
-            declineMsg: '',
-            patient: patient,
-            disease: disease,
-            treatment: treatment,
-            medication: medication,
-            DrName: DrName,
-            hospitalRecordID: hospitalRecordID,
-            diagnoseDate: diagnoseDate,
-            dischargeDate: dischargeDate
-        });
-        userRecords[patient].push(newRecord);
+        require(cids.length == titles.length, "CIDs and titles of files count must match"); 
+
+        // After push, target index will pe previous length
+        uint256 targetRecordIdx = userRecords[patient].length;
+        userRecords[patient].push();
+
+        Data.MedicalData storage newRecord = userRecords[patient][targetRecordIdx];
+        newRecord.senderHospital = msg.sender;
+        newRecord.approved = false;
+        newRecord.declineMsg = '';
+        newRecord.patient = patient;
+        newRecord.disease = disease;
+        newRecord.treatment = treatment;
+        newRecord.medication = medication;
+        newRecord.DrName = DrName;
+        newRecord.hospitalRecordID = hospitalRecordID;
+        newRecord.diagnoseDate = diagnoseDate;
+        newRecord.dischargeDate = dischargeDate;
+        for (uint256 i=0; i<cids.length; i++) {
+            newRecord.reports.push(Data.Media(titles[i], cids[i]));
+        }
 
         // Not necessarily required, as it can be derived from getAllRecords
         return userRecords[patient].length - 1;
