@@ -506,7 +506,7 @@ export function getPatientPersonalInfo(patientBlockchainAddress) {
   });
 }
 
-export async function sendEth(fromAddress, toAddress, amountEth = "0.1") {
+export async function sendEth(fromAddress, toAddress, amountEth = "0.01") {
   const gasPrice = await web3.eth.getGasPrice();
   const tx = await web3.eth.sendTransaction({
     from: fromAddress,

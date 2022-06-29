@@ -150,7 +150,7 @@ const PatientRegistration = () => {
         auth.wallet.address
       );
       if (registeredPatientTxReceipt) {
-        sendEth(auth.wallet.address, newPatientAccount.address, "0.1");
+        sendEth(auth.wallet.address, newPatientAccount.address, "0.01");
         setGeneratedAccount(newPatientAccount);
         setProgress(PROGRESS_STATUSES.SUCCESS);
       } else {

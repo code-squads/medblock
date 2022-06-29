@@ -133,7 +133,7 @@ const HospitalRegistration = () => {
       );
 
       if (registeredHospitalTxReceipt) {
-        sendEth(auth.wallet.address, newHospitalAccount.address, "0.1");
+        sendEth(auth.wallet.address, newHospitalAccount.address, "0.01");
         setGeneratedAccount(newHospitalAccount);
         setProgress(PROGRESS_STATUSES.SUCCESS);
       } else alert("Hospital not registered due to some error");
