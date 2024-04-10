@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(slashes(false));
 app.listen(PORT, () =>
   console.log(`Medikeep server is up and running on port ${PORT}`)
-);
+)
 
 // Setting the MongoDB
 mongoose
@@ -43,7 +43,6 @@ app.post("/apis/sendOTP", (req, res) => {
       message: "Wrong phone number :(",
       phone,
       success: false,
-      data,
     });
 
   sendOTP(phone)
@@ -64,7 +63,7 @@ app.post("/apis/sendOTP", (req, res) => {
         message: "Server error, contact administrator",
         phone,
         success: false,
-        error,
+        err,
       });
     });
 });
@@ -73,8 +72,9 @@ app.post("/apis/sendOTP", (req, res) => {
 app.post("/apis/verifyOTP", (req, res) => {
   const phone = `+91${req.body.phone}`;
   const code = req.body.code;
+  console.log(`Verifying OTP for ${phone} ${code}`);
 
-  if (!phone || code.length != CODE_LENGTH)
+  if (!phone || code.length !== Number(CODE_LENGTH))
     return res.status(400).send({
       message: "Invalid phone number or code :(",
       success: false,

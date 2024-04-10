@@ -157,11 +157,11 @@ export async function addNewRecord(
   //     return new Error("Invalid record number / ID");
 
   const results = await uploadFilesToIPFS(uploadedFiles);
-  console.log("file upload result:", results);
+  console.log("IPFS file upload result:", results);
 
-  const cids = results.map(result => result.path);
+  const cids = results.map(result => result.cid);
   console.log("View files on IPFS:");
-  results.forEach(result => console.log(cidToURL(result.path)));
+  cids.forEach(cid => console.log(cidToURL(cid)));
 
   const fileNames = results.map(result => result.name);
 

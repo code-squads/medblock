@@ -1,0 +1,25 @@
+Build -> docker image build -t medblock-test:latest --network=host .
+For apple silicon (Explicitly specify amd64) -> docker image build --platform=linux/amd64 -t medblock-test:latest --network=host .
+
+docker image tag react-example-image <username>/react-example-image
+eg.
+docker image tag medblock-test:latest omkarph/medblock-test:latest
+docker push omkarph/medblock-test:latest
+
+
+Start -
+docker run -p 5001:5001 -p 3000:3000 omkarph/medblock-test:latest \
+-e REACT_APP_SERVER_URL='http://127.0.0.1:5001' \
+-e REACT_APP_PINATA_API_KEY='' \
+-e REACT_APP_PINATA_API_SECRET='' \
+-e TWILIO_ACCOUNT_SID='' \
+-e AUTH_TOKEN='' \
+-e SERVICE_ID='' \
+-e CODE_LENGTH='6' \
+-e MONGODB_SRV_STRING='mongodb+srv://' \
+-e FAST_TWO_SMS_KEY='' \
+-e PORT='5001' \
+
+For apple silicon -
+docker run -d -p 5001:5001 -p 3000:3000 --platform=linux/amd64 omkarph/medblock-test:latest \
+-e .....

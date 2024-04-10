@@ -9,6 +9,7 @@ const fast2sms = require('fast-two-sms')
 exports.sendOTP = async (phone) => {
     phone = parseInt(phone.substring(3))
     var otp = Math.floor(100000 + Math.random() * 9000);
+    console.log(`Send OTP ${phone} ${otp}`);
    
     const numberExists = await OTP.findOne({phone:phone})
     if(numberExists) {
@@ -35,6 +36,7 @@ exports.sendOTP = async (phone) => {
 }
 
 exports.verifyOTP = async (phone, code) => {
+    console.log(`Verify OTP ${phone} ${code}`);
     phone = parseInt(phone.substring(3))
     const otp = await OTP.findOne({phone:phone})
     if(otp) {

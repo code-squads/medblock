@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "react-scripts build",
+    "build": "react-scripts --openssl-legacy-provider build",
     "eject": "react-scripts eject",
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "medblock-setup": "npm i  --legacy-deps && npm i --legacy-deps --prefix server",
+    "medblock-dev": "concurrently \"react-scripts --openssl-legacy-provider start\" \"cd server && nodemon -r dotenv/config src/index.js\"",
     "test": "react-scripts test"
   },
   "browserslist": {
@@ -35,6 +37,7 @@
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@mui/lab": "^5.0.0-alpha.55",
     "@mui/material": "^5.1.1",
+    "@pinata/sdk": "^2.1.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -53,7 +56,7 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^14.2.1",
     "react-html2pdf": "^1.0.1",
-    "react-qr-reader": "^2.2.1",
+    "react-qr-reader": "^3.0.0-beta-1",
     "react-qrcode-logo": "^2.5.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
@@ -61,5 +64,10 @@
     "swiper": "^6.8.4",
     "web-vitals": "^1.0.1",
     "web3": "^1.6.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0"
   }
 }

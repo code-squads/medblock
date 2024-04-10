@@ -36,7 +36,9 @@ export const dateFromTimestamp = timestamp => {
 export function cidToURL(cid, fileName, extension){
     if(!cid)
         return "";
-    return `https://ipfs.infura.io/ipfs/${cid}?filename=${fileName}.${extension}`;
+    // cid = "Qmao2KAKTMzqbe1syY33pzZFMLZMv3jkh1Hk6pyppdhBkX";
+    return `https://black-hollow-buzzard-800.mypinata.cloud/ipfs/${cid}?filename=${fileName}.${extension}`
+    // return `https://ipfs.infura.io/ipfs/${cid}?filename=${fileName}.${extension}`;
 }
 
 export async function processRecords(allRecords){

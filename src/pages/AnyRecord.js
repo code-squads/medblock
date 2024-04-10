@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faCamera } from "@fortawesome/free-solid-svg-icons";
-import QrReader from "react-qr-reader";
-import QrcodeDecoder from 'qrcode-decoder';
+import { QrReader } from "react-qr-reader";
+import QrcodeDecoder from "qrcode-decoder";
 
 import basicInfo from "../assets/illustrations/basicInfo2.png";
 import KeyImage from "../assets/icons/general/Key.png";
@@ -76,39 +76,39 @@ const AnyRecord = () => {
   };
 
   const onHandlerResultWebcam = (result) => {
-    if (result) {
-      setAddress(result);
+    console.log("Scan res", result);
+    if (result && result.text) {
+      setAddress(result.text);
       setOpenWebcam(false);
       setOpenWebcamMobile(false);
     }
   };
 
   const convertBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file)
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-        }
-        fileReader.onerror = (error) => {
-          reject(error);
-        }
-      })
-  }
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   const onFileChangeHandler = async (file) => {
-      setOpenWebcam(false)
-      setOpenWebcamMobile(false)
+    setOpenWebcam(false);
+    setOpenWebcamMobile(false);
 
-      const base64File = await convertBase64(file)
-      
-      var qr = new QrcodeDecoder()
-      qr.decodeFromImage(base64File)
-      .then((res) => {
-          console.log(res.data);
-          setAddress(res.data)
-      })
-  }
+    const base64File = await convertBase64(file);
+
+    var qr = new QrcodeDecoder();
+    qr.decodeFromImage(base64File).then((res) => {
+      console.log(res.data);
+      setAddress(res.data);
+    });
+  };
 
   return (
     <Container>
@@ -121,14 +121,14 @@ const AnyRecord = () => {
         {!openWebcam && <AppOveriewIllustration />}
         {openWebcam && (
           <QrReader
-            style={{
-              width: "50%",
+            containerStyle={{
+              width: "70%",
               marginTop: "40px",
               border: "solid black 1px",
             }}
             delay={300}
             onError={onHandlerErrWebcam}
-            onScan={onHandlerResultWebcam}
+            onResult={onHandlerResultWebcam}
           />
         )}
       </SubContainer1>
@@ -146,14 +146,14 @@ const AnyRecord = () => {
         </HeadingConatiner>
         {openWebcamMobile && (
           <QrReader
-            style={{
-              width: "60%",
+            containerStyle={{
+              width: "70%",
               marginTop: "40px",
               border: "solid black 1px",
             }}
             delay={300}
             onError={onHandlerErrWebcam}
-            onScan={onHandlerResultWebcam}
+            onResult={onHandlerResultWebcam}
           />
         )}
         {!openWebcamMobile && (
@@ -170,26 +170,34 @@ const AnyRecord = () => {
         )}
         {!openWebcamMobile && <OrDiv>Or</OrDiv>}
         <ButtonContainer>
-          <UploadQrCodeButton onClick={() => {setOpenWebcam(false); setOpenWebcamMobile(false)}} onChange={(event) => onFileChangeHandler(event.target.files[0])}/>
+          <UploadQrCodeButton
+            onClick={() => {
+              setOpenWebcam(false);
+              setOpenWebcamMobile(false);
+            }}
+            onChange={(event) => onFileChangeHandler(event.target.files[0])}
+          />
           <ScanOrButton onClick={() => setOpenWebcam(!openWebcam)}>
-            {openWebcam ? "Close Camera" 
-            : 
+            {openWebcam ? (
+              "Close Camera"
+            ) : (
               <>
                 Scan QR &nbsp;&nbsp;
                 <FontAwesomeIcon icon={faCamera} />
               </>
-            }
+            )}
           </ScanOrButton>
           <ScanOrButtonMobile
             onClick={() => setOpenWebcamMobile(!openWebcamMobile)}
           >
-            {openWebcamMobile ? "Close Camera" 
-            : 
+            {openWebcamMobile ? (
+              "Close Camera"
+            ) : (
               <>
                 Scan QR &nbsp;&nbsp;
                 <FontAwesomeIcon icon={faCamera} />
               </>
-            }
+            )}
           </ScanOrButtonMobile>
         </ButtonContainer>
         <CoreButton
